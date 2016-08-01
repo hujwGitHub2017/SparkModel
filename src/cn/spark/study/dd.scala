@@ -8,6 +8,18 @@ object dd {
   
   def main(args: Array[String]): Unit = {
     
+    
+    val conf = new SparkConf().setAppName("ddd").setMaster("local")
+    
+     val sc = new SparkContext(conf)
+    
+    val data = sc.textFile("/user/wlan/dpilog_07_21/20160715153000/",1)
+    
+     data.filter { x => !x.startsWith("null") && x.split("\\t").length > 10 }.count()
+    
+    data.filter { x => !x.startsWith("null") && x.split("\\t").length > 10 }.repartition(1).saveAsTextFile("/user/wlan/hdata2")
+    
+    
         /*val conf = new SparkConf().setAppName("ddd").setMaster("local")
         
         val sc = new SparkContext(conf)
