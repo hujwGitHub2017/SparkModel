@@ -3,12 +3,12 @@
   <groupId>Spark_study_s</groupId>
   <artifactId>Spark_study_s</artifactId>
   <version>0.0.1-SNAPSHOT</version>
-  <repositories>
+  <repositories>  
 		<repository>
 			<id>Akka repository</id>
 			<url>http://repo.akka.io/releases</url>
 		</repository>
-		<repository>
+		<repository>  
 			<id>cloudera</id>
 			<url>https://repository.cloudera.com/artifactory/cloudera-repos/.</url>
 		</repository>
@@ -75,7 +75,7 @@
 									implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
 								</transformer>
 
-							</transformers>
+							</transformers> 
 						</configuration>
 					</execution>
 				</executions>
@@ -84,29 +84,44 @@
 	</build>
 
 	<dependencies>
-
-
+		
+		<!-- 
+		<dependency>
+			<groupId>org.apache.hadoop</groupId>
+			<artifactId>hadoop-mapreduce-client-core</artifactId>
+			<version>2.6.0-cdh5.5.0</version>
+		</dependency>
+		
+		 -->
+		
+		
 		<dependency>
 			<groupId>org.apache.hadoop</groupId>
 			<artifactId>hadoop-client</artifactId>
+			<!-- 
 			<exclusions>
 				<exclusion>
 					<artifactId>guava</artifactId>
 					<groupId>com.google.guava</groupId>
 				</exclusion>
 			</exclusions>
+			 -->
+			 
 		</dependency>
 		<!--spark -->
 		<dependency>
 			<groupId>org.apache.spark</groupId>
 			<artifactId>spark-core_2.10</artifactId>
 			<version>1.5.0-cdh5.5.0</version>
+			<!-- 
+			
 			<exclusions>
 				<exclusion>
 					<artifactId>guava</artifactId>
 					<groupId>com.google.guava</groupId>
 				</exclusion>
 			</exclusions>
+			 -->
 		</dependency>
 		<dependency>
 			<groupId>org.apache.spark</groupId>
@@ -190,6 +205,12 @@
 			<artifactId>spark-streaming-flume_2.10</artifactId>
 			<version>1.5.0-cdh5.5.0</version>
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.elasticsearch/elasticsearch-hadoop -->
+		<dependency>
+    		<groupId>org.elasticsearch</groupId>
+    		<artifactId>elasticsearch-hadoop</artifactId>
+    		<version>2.3.2</version>
+		</dependency>
 		<dependency>
 			<groupId>jdk.tools</groupId>
 			<artifactId>jdk.tools</artifactId>
@@ -210,6 +231,7 @@
 				<artifactId>hadoop-client</artifactId>
 				<version>2.6.0-mr1-cdh5.5.0</version>
 			</dependency>
+			
 		</dependencies>
 	</dependencyManagement>
 </project>
