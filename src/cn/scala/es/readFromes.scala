@@ -3,6 +3,13 @@ package cn.scala.es
 import org.apache.spark.SparkConf
 import org.apache.spark.SparkContext
 import org.apache.hadoop.conf.Configuration
+import org.apache.spark.rdd.NewHadoopRDD
+import org.apache.hadoop.io.Text
+import org.apache.hadoop.io.MapWritable
+import org.elasticsearch.hadoop.mr.EsInputFormat
+import org.apache.hadoop.conf.Configuration
+import org.apache.hadoop.io.Writable
+import java.util.Set
 
 object readFromes {
   
@@ -12,15 +19,53 @@ object readFromes {
     
     val sc =  new SparkContext(conf)
     
-    conf.set("es.resource", "radio/artists");       
-    conf.set("es.query", "?q=me*"); 
+//    conf.set("es.resource", "radio/artists");       
+//    conf.set("es.query", "?q=me*"); 
+// conf.set("es.nodes", "127.0.0.1")    
     
-    sc.hadoopConfiguration.set("es.resource", "radio/artists")
+    val confs = new Configuration()
     
+    confs.set("es.nodes", "192.168.10.16")
+    
+    confs.set("es.port", "9201")
+    
+    confs.set("es.resource", "http_20160929/783233125")
+    
+    confs.set("es.query", "?q=192.168*")
     
 
+    val esRdd = sc.newAPIHadoopRDD(confs,classOf[EsInputFormat[Text,MapWritable]],classOf[Text],classOf[MapWritable])
+    
+//    esRdd.foreach(f=>{
+//      
+//      println(f._1)
+//      
+//    })
+    
+   
+    
+    esRdd.foreach(f =>{
+      
+      println(f._1+" values: ")
+      
+      /*val keySet = f._2.keySet().iterator()
+      
+      while (keySet.hasNext()) {
+        
+        println("valus : "+keySet.next().getClass)
+        
+      }*/
+      
+      println("  key "+ f._2.containsKey(new Text("host_name")))
+      
+      println(" hosts : "+f._2.get( new Text("host_name")))
+      
+    })
     
     
+    
+    val count = esRdd.count()
+    println("count == "+count)
   }
   
   
