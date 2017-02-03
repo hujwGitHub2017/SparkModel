@@ -205,6 +205,11 @@
 			<artifactId>spark-streaming-flume_2.10</artifactId>
 			<version>1.5.0-cdh5.5.0</version>
 		</dependency>
+		<dependency>
+			<groupId>org.apache.spark</groupId>
+			<artifactId>spark-streaming-kafka_2.10</artifactId>
+			<version>1.5.0-cdh5.5.0</version>
+		</dependency>
 		<!-- https://mvnrepository.com/artifact/org.elasticsearch/elasticsearch-hadoop -->
 		<dependency>
     		<groupId>org.elasticsearch</groupId>
