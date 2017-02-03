@@ -24,6 +24,8 @@ object TransformationOperation {
       
       val file01Rdd = sc.textFile("D:\\data\\hb\\filename.txt", 1)
       
+      file01Rdd.partitions.size  // 该RDD的分片的个数
+      
       val logRdd = sc.textFile("D:\\data\\hb\\Log_Dpi.txt.2016-07-01", 1)
       
       val filename = file01Rdd.map { x => (x.split(" ")((x.split(" ").length)-1),1) }
@@ -76,7 +78,7 @@ object TransformationOperation {
 			val nameRdd = sc.parallelize(nameList, 1)	
 			val scoreRdd = sc.parallelize(scoreList, 1)
 			
-			
+			//1、内关联：只保留两边id相等的地方
 			val nameScore = nameRdd.join(scoreRdd).sortByKey(true, 2)
 			
 			
@@ -87,6 +89,15 @@ object TransformationOperation {
 			  println("score : "+v._2._2)
 			  
 			})
+			
+			//2、左外关联 以左边的数据为准，左边的数据全部保留，
+			val nameScore02 = nameRdd.leftOuterJoin(scoreRdd).collect()
+			
+			//3、右外关联  以右边的数据为准，右边有的数据一律保留，
+			val nameScore03 = nameRdd.rightOuterJoin(scoreRdd).collect()
+			
+			//4、全外关联  两边有的数据都进行保存
+			val nameScore04 = nameRdd.fullOuterJoin(scoreRdd).collect()
       
     }
     
