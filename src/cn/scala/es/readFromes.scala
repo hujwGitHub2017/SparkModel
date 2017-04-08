@@ -15,7 +15,7 @@ object readFromes {
   
   def main(args: Array[String]): Unit = {
     
-    val conf = new SparkConf().setMaster("local[2]").setAppName("readFromEs")
+    val conf = new SparkConf().setAppName("readFromEs")
     
     val sc =  new SparkContext(conf)
     
@@ -25,13 +25,13 @@ object readFromes {
     
     val confs = new Configuration()
     
-    confs.set("es.nodes", "192.168.10.16")
+    confs.set("es.nodes", "192.168.36.26")
     
-    confs.set("es.port", "9201")
+    confs.set("es.port", "9200")
     
-    confs.set("es.resource", "http_20160929/783233125")
+    confs.set("es.resource", "wjlog_20170405")
     
-    confs.set("es.query", "?q=192.168*")
+    //confs.set("es.query", "?q=192.168*")
     
 
     val esRdd = sc.newAPIHadoopRDD(confs,classOf[EsInputFormat[Text,MapWritable]],classOf[Text],classOf[MapWritable])
@@ -56,9 +56,11 @@ object readFromes {
         
       }*/
       
-      println("  key "+ f._2.containsKey(new Text("host_name")))
+      println(" smac  key "+ f._2.containsKey(new Text("smac")))
       
-      println(" hosts : "+f._2.get( new Text("host_name")))
+      println(" smac value : "+f._2.get( new Text("smac")))
+      
+      println("id key "+f._2.containsKey(new Text("_id")))
       
     })
     

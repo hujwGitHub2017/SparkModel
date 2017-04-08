@@ -39,5 +39,5 @@ object SparkStreamingCheckPoint {
     )
     
     //对元数据信息进行保存
-    ssc
+    
   }
